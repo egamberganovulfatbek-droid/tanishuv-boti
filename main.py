@@ -1,4 +1,7 @@
 import telebot
+import os
+from flask import Flask
+from threading import Thread
 from telebot import types
 import sqlite3
 
@@ -216,3 +219,14 @@ def juft_qidirish(message, user):
 # Botni yuritish
 print("Bot muvaffaqiyatli ishlamoqda...")
 bot.polling(none_stop=True)
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot onlayn!"
+
+def run():
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
+# Serverni alohida oqimda yoqish
+Thread(target=run).start()
